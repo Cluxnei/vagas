@@ -38,6 +38,21 @@
 @else
 <script src="{{ asset('js/app.js') }}"></script>
 @endif
+@if(session()->has('error'))
+    @if(session()->get('error'))
+    <script>
+        $(() => {
+            Swal.fire('Ops...',"{{ session()->get('message') }}",'error');
+        });
+    </script>
+    @else
+    <script>
+        $(() => {
+            Swal.fire('Sucesso',"{{ session()->get('message') }}",'success');
+        });
+    </script>
+    @endif
+@endif
 <script>
     $(() => {
         $('.select2').select2();

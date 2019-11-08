@@ -16,7 +16,7 @@ class User extends Authenticatable
      * @var array
      */
     protected $fillable = [
-        'name', 'email', 'password', 'cpf', 'rg', 'ra', 'course_id',
+        'name', 'email', 'password', 'cpf', 'rg', 'ra', 'course_id', 'approved',
     ];
 
     /**
@@ -36,4 +36,9 @@ class User extends Authenticatable
     protected $casts = [
         'email_verified_at' => 'datetime',
     ];
+
+    public function isApproved()
+    {
+        return $this->approved == 1;
+    }
 }
