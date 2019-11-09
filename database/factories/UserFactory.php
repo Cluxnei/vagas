@@ -21,7 +21,13 @@ $factory->define(User::class, function (Faker $faker) {
         'name' => $faker->name,
         'email' => $faker->unique()->safeEmail,
         'email_verified_at' => now(),
-        'password' => '$2y$10$92IXUNpkjO0rOQ5byMi.Ye4oKoEa3Ro9llC/.og/at2.uheWG/igi', // password
+        'password' => '$2y$10$P.QuxbZeNyjrXSTIYXZxrOTJGsXm.NIhP05G1XPZ/b5h42poWUBuC', // 12345678
         'remember_token' => Str::random(10),
+        'approved' => random_int(0, 1),
+        'administrator' => random_int(0, 1),
+        'cpf' => Str::random(11),
+        'rg' => Str::random(9),
+        'ra' => Str::random(20),
+        'course_id' => random_int(1, 10),
     ];
 });
