@@ -98,7 +98,16 @@ class JobController extends Controller
      */
     public function show($id)
     {
-        //
+        try {
+            $job = Job::findOrFail($id);
+            return view('jobs.show', compact('job'));
+        } catch (\Throwable $th) {
+            return redirect()->route('jobs.index')
+                ->with([
+                    'error' => true,
+                    'message' => "Vaga não encontrada."
+                ]);
+        }
     }
 
     /**

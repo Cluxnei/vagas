@@ -95,7 +95,6 @@
                 <div class="form-group">
                     <label for="course_id">Cursos</label>
                     <select multiple class="select2 form-control {{ $errors->has('course_id') ? 'is-invalid' : '' }}" name="course_id[]">
-                        <option value="">Selecione os cursos</option>
                         @foreach($courses as $course)
                         <option value="{{ $course->id }}">{{ $course->name }}</option>
                         @endforeach
