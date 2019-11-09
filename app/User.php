@@ -2,6 +2,7 @@
 
 namespace App;
 
+use App\Models\Course;
 use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
@@ -45,5 +46,15 @@ class User extends Authenticatable
     public function isAdministrator(): bool
     {
         return $this->administrator == 1;
+    }
+
+    public function scopeIsNotAdmistrator($query)
+    {
+        return $query->where('administrator', 0);
+    }
+
+    public function course()
+    {
+        return $this->belongsTo(Course::class);
     }
 }

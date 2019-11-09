@@ -11,12 +11,19 @@
 |
 */
 
-Route::get('/', function () {
-    return view('welcome');
-});
+Route::redirect('/', '/home');
 
 Auth::routes();
 
-Route::get('/home', function () {
-    return view('home');
-})->name('home')->middleware(['auth', 'approved']);
+Route::middleware(['auth', 'approved'])->group(function () {
+    #Home
+    Route::get('/home', 'HomeController@index')->name('home');
+    #General Resources
+    Route::resources([
+        'users' => 'UserController',
+    ]);
+    Route::name('users.')->prefix('users')->group(function () {
+        Route::get('approve/{id}', 'UserController@approve')->name('approve');
+        Route::get('reject/{id}', 'UserController@reject')->name('reject');
+    });
+});

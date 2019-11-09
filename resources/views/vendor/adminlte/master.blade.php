@@ -58,6 +58,7 @@
         $('.select2').select2();
         $('input.cpf').mask('000.000.000-00');
         $('input.rg').mask('00.000.000-0');
+        $('.data-table').dataTable();
     });
 </script>
 </body>
