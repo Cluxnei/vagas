@@ -6,4 +6,5 @@ return [
     'administrators-users' => 'Adminstradores',
     'cities' => 'Cidades',
     'courses' => 'Cursos',
+    'companies' => 'Empresas',
 ];

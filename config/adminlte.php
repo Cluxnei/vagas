@@ -198,6 +198,12 @@ return [
             'icon' => 'fas fa-fw fa-user',
             'can' => 'manage',
         ],
+        [
+            'text' => 'companies',
+            'url'  => 'companies',
+            'icon' => 'fas fa-fw fa-user',
+            'can' => 'manage',
+        ],
     ],
 
     /*

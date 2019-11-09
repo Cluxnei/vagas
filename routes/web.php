@@ -29,5 +29,6 @@ Route::middleware(['auth', 'approved'])->group(function () {
         'cities' => 'CityController',
         'users' => 'UserController',
         'courses' => 'CourseController',
+        'companies' => 'CompanyController',
     ]);
 });

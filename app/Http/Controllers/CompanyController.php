@@ -3,9 +3,10 @@
 namespace App\Http\Controllers;
 
 use App\Models\City;
+use App\Models\Company;
 use Illuminate\Http\Request;
 
-class CityController extends Controller
+class CompanyController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -14,8 +15,8 @@ class CityController extends Controller
      */
     public function index()
     {
-        $cities = City::all();
-        return view('cities.index', compact('cities'));
+        $companies = Company::all();
+        return view('companies.index', compact('companies'));
     }
 
     /**
@@ -25,7 +26,8 @@ class CityController extends Controller
      */
     public function create()
     {
-        return view('cities.create');
+        $cities = City::all();
+        return view('companies.create', compact('cities'));
     }
 
     /**
@@ -38,14 +40,14 @@ class CityController extends Controller
     {
         $data = $request->validate([
             'name' => ['required', 'string', 'max:255'],
-            'uf' => ['required', 'string', 'max:2'],
+            'email' => ['required', 'unique:companies', 'email', 'string', 'max:255'],
+            'city_id' => ['required'],
         ]);
-        $data['uf'] = strtoupper($data['uf']);
         try {
-            $city = City::create($data);
-            return redirect()->route('cities.index')->with(['error' => false, 'message' => "{$city->name} adicionada."]);
+            $company = Company::create($data);
+            return redirect()->route('companies.index')->with(['error' => false, 'message' => "{$company->name} adicionada."]);
         } catch (\Throwable $th) {
-            return redirect()->back()->withInput()->with(['error' => true, 'message' => 'Erro ao adicionar cidade']);
+            return redirect()->back()->withInput()->with(['error' => true, 'message' => 'Erro ao adicionar empresa']);
         }
     }
 
@@ -92,12 +94,12 @@ class CityController extends Controller
     public function destroy($id)
     {
         try {
-            $city = City::findOrFail($id);
-            $name = $city->name;
-            $city->delete();
-            return redirect()->route('cities.index')->with(['error' => false, 'message' => "{$name} deletada."]);
+            $company = Company::findOrFail($id);
+            $name = $company->name;
+            $company->delete();
+            return redirect()->route('companies.index')->with(['error' => false, 'message' => "{$name} deletada."]);
         } catch (\Throwable $th) {
-            return redirect()->back()->with(['error' => true, 'message' => 'Erro ao deletar cidade']);
+            return redirect()->back()->with(['error' => true, 'message' => 'Erro ao deletar empresa']);
         }
     }
 }
