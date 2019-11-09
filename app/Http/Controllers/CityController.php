@@ -15,7 +15,6 @@ class CityController extends Controller
     public function index()
     {
         $cities = City::all();
-        dd($cities);
         return view('cities.index', compact('cities'));
     }
 
@@ -26,7 +25,7 @@ class CityController extends Controller
      */
     public function create()
     {
-        //
+        return view('cities.create');
     }
 
     /**
@@ -37,7 +36,17 @@ class CityController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $data = $request->validate([
+            'name' => ['required', 'string', 'max:255'],
+            'uf' => ['required', 'string', 'max:2'],
+        ]);
+        $data['uf'] = strtoupper($data['uf']);
+        try {
+            $city = City::create($data);
+            return redirect()->route('cities.index')->with(['error' => false, 'message' => "{$city->name} adicionada."]);
+        } catch (\Throwable $th) {
+            return redirect()->back()->withInput()->withErrors()->with(['error' => true, 'message' => 'Erro ao adicionar cidade']);
+        }
     }
 
     /**
@@ -82,6 +91,13 @@ class CityController extends Controller
      */
     public function destroy($id)
     {
-        //
+        try {
+            $city = City::findOrFail($id);
+            $name = $city->name;
+            $city->delete();
+            return redirect()->route('cities.index')->with(['error' => false, 'message' => "{$name} deletada."]);
+        } catch (\Throwable $th) {
+            return redirect()->back()->with(['error' => true, 'message' => 'Erro ao deletar cidade']);
+        }
     }
 }
