@@ -24,11 +24,15 @@ Route::middleware(['auth', 'approved'])->group(function () {
         Route::get('approve/{id}', 'UserController@approve')->name('approve');
         Route::get('reject/{id}', 'UserController@reject')->name('reject');
     });
+    Route::name('jobs.')->prefix('jobs')->group(function () {
+        Route::get('changeStatus/{status}/{id}', 'JobController@changeStatus')->name('changeStatus');
+    });
     #General Resources
     Route::resources([
         'cities' => 'CityController',
         'users' => 'UserController',
         'courses' => 'CourseController',
         'companies' => 'CompanyController',
+        'jobs' => 'JobController',
     ]);
 });

@@ -13,4 +13,9 @@ class Course extends Model
     {
         return $this->hasMany(User::class);
     }
+
+    public function jobs()
+    {
+        return $this->belongsToMany(Job::class, 'courses_jobs');
+    }
 }

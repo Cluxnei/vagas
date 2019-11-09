@@ -3,6 +3,7 @@
 namespace App;
 
 use App\Models\Course;
+use App\Models\Job;
 use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
@@ -61,5 +62,10 @@ class User extends Authenticatable
     public function course()
     {
         return $this->belongsTo(Course::class);
+    }
+
+    public function jobs()
+    {
+        return $this->hasMany(Job::class, 'administrator_id', 'id');
     }
 }

@@ -7,4 +7,5 @@ return [
     'cities' => 'Cidades',
     'courses' => 'Cursos',
     'companies' => 'Empresas',
+    'jobs' => 'Vagas',
 ];
