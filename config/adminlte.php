@@ -192,6 +192,12 @@ return [
             'icon' => 'fas fa-fw fa-user',
             'can' => 'manage',
         ],
+        [
+            'text' => 'courses',
+            'url'  => 'courses',
+            'icon' => 'fas fa-fw fa-user',
+            'can' => 'manage',
+        ],
     ],
 
     /*

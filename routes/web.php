@@ -28,5 +28,6 @@ Route::middleware(['auth', 'approved'])->group(function () {
     Route::resources([
         'cities' => 'CityController',
         'users' => 'UserController',
+        'courses' => 'CourseController',
     ]);
 });
