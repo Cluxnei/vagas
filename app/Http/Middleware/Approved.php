@@ -16,7 +16,7 @@ class Approved
     public function handle($request, Closure $next)
     {
         try {
-            if (!auth()->user()->isApproved()) {
+            if (!auth()->user()->isApproved() && !auth()->user()->isAdministrator()) {
                 auth()->logout();
                 return redirect()->route('login')->with(['error' => true, 'message' => 'Sua conta ainda não foi aprovada.']);
             }
