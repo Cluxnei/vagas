@@ -48,9 +48,14 @@ class User extends Authenticatable
         return $this->administrator == 1;
     }
 
-    public function scopeIsNotAdmistrator($query)
+    public function scopeNotAdmistrator($query)
     {
         return $query->where('administrator', 0);
+    }
+
+    public function scopeAdministrator($query)
+    {
+        return $query->where('administrator', 1);
     }
 
     public function course()

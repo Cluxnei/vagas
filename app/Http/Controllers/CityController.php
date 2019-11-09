@@ -2,38 +2,11 @@
 
 namespace App\Http\Controllers;
 
-use App\User;
+use App\Models\City;
 use Illuminate\Http\Request;
 
-class UserController extends Controller
+class CityController extends Controller
 {
-    public function approve($id)
-    {
-        try {
-            User::findOrFail($id)->update([
-                'approved' => 1,
-            ]);
-            return redirect()->back()->with(['error' => false, 'message' => 'Usuário aprovado']);
-        } catch (Throwable $th) {
-            return redirect()->back()->with(['error' => true, 'message' => 'Erro ao aprovar usuário']);
-        }
-    }
-    public function reject($id)
-    {
-        try {
-            User::findOrFail($id)->update([
-                'approved' => 0,
-            ]);
-            return redirect()->back()->with(['error' => false, 'message' => 'Usuário rejeitado']);
-        } catch (\Throwable $th) {
-            return redirect()->back()->with(['error' => true, 'message' => 'Erro ao rejeitar usuário']);
-        }
-    }
-    public function administratorsIndex()
-    {
-        $administrators = User::administrator()->get();
-        return view('users.administrators.index', compact('administrators'));
-    }
     /**
      * Display a listing of the resource.
      *
@@ -41,8 +14,9 @@ class UserController extends Controller
      */
     public function index()
     {
-        $users = User::notAdmistrator()->orderBy('approved', 'asc')->get();
-        return view('users.index', compact('users'));
+        $cities = City::all();
+        dd($cities);
+        return view('cities.index', compact('cities'));
     }
 
     /**

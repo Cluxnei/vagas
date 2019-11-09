@@ -180,6 +180,18 @@ return [
             'icon' => 'fas fa-fw fa-users',
             'can' => 'manage',
         ],
+        [
+            'text' => 'administrators-users',
+            'url'  => 'users/administrators',
+            'icon' => 'fas fa-fw fa-user',
+            'can' => 'manage',
+        ],
+        [
+            'text' => 'cities',
+            'url'  => 'cities',
+            'icon' => 'fas fa-fw fa-user',
+            'can' => 'manage',
+        ],
     ],
 
     /*

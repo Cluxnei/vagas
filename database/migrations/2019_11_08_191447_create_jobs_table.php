@@ -25,7 +25,7 @@ class CreateJobsTable extends Migration
             $table->unsignedBigInteger('administrator_id');
             $table->unsignedBigInteger('company_id');
             $table->timestamps();
-            $table->foreign('administrator_id')->references('id')->on('administrators');
+            $table->foreign('administrator_id')->references('id')->on('users');
             $table->foreign('company_id')->references('id')->on('companies');
         });
     }
