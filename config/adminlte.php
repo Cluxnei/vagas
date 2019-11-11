@@ -177,6 +177,7 @@ return [
             'text' => 'search',
             'search' => true,
             'topnav' => true,
+            'url' => '/search'
         ],
         [
             'header' => 'account_settings',

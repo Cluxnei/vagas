@@ -7,7 +7,9 @@ use App\User;
 
 class Job extends Model
 {
+
     protected $guarded = [];
+
 
     public function administrator()
     {

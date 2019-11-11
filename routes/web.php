@@ -18,6 +18,7 @@ Auth::routes();
 Route::middleware(['auth', 'approved'])->group(function () {
     #Home
     Route::get('/home', 'HomeController@index')->name('home');
+    Route::get('/search', 'HomeController@search')->name('search');
     #Users
     Route::name('users.')->prefix('users')->group(function () {
         Route::get('administrators', 'UserController@administratorsIndex')->name('administrators');

@@ -18,4 +18,10 @@ class HomeController extends Controller
         $saudation = ($hr < 12 ? 'Bom dia' : ($hr < 18 ? 'Boa tarde' : 'Boa noite')) . ', ' . auth()->user()->name;
         return view('home', compact('jobs', 'saudation'));
     }
+
+    public function search(Request $request)
+    {
+        $search = $request->q;
+        dd($search);
+    }
 }
