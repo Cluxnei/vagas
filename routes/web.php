@@ -26,6 +26,7 @@ Route::middleware(['auth', 'approved'])->group(function () {
     });
     Route::name('jobs.')->prefix('jobs')->group(function () {
         Route::get('changeStatus/{status}/{id}', 'JobController@changeStatus')->name('changeStatus');
+        Route::get('v/{id}', 'JobController@userView')->name('userView');
     });
     #General Resources
     Route::resources([

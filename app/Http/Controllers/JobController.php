@@ -9,6 +9,11 @@ use Illuminate\Http\Request;
 
 class JobController extends Controller
 {
+    public function userView($id)
+    {
+        $job = Job::findOrFail($id);
+        return view('jobs.userView', compact('job'));
+    }
     public function changeStatus($status, $id)
     {
         try {

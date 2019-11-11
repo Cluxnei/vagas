@@ -91,7 +91,7 @@ return [
     */
 
     'sidebar_mini' => true,
-    'sidebar_collapse' => false,
+    'sidebar_collapse' => true,
     'sidebar_collapse_auto_size' => false,
     'sidebar_collapse_remember' => false,
     'sidebar_collapse_remember_no_transition' => true,
@@ -134,7 +134,7 @@ return [
 
     'use_route_url' => false,
 
-    'dashboard_url' => 'home',
+    'dashboard_url' => '/home',
 
     'logout_url' => '/logout',
 
@@ -173,7 +173,15 @@ return [
     */
 
     'menu' => [
-        ['header' => 'account_settings'],
+        [
+            'text' => 'search',
+            'search' => true,
+            'topnav' => true,
+        ],
+        [
+            'header' => 'account_settings',
+            'can' => 'manage',
+        ],
         [
             'text' => 'users',
             'url'  => 'users',

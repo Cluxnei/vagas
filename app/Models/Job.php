@@ -38,4 +38,9 @@ class Job extends Model
     {
         return $this->status == 'archived';
     }
+
+    public function scopePublished($query)
+    {
+        return $query->where('status', 'published');
+    }
 }

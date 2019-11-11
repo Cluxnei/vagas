@@ -8,4 +8,5 @@ return [
     'courses' => 'Cursos',
     'companies' => 'Empresas',
     'jobs' => 'Vagas',
+    'search' => 'Pesquisar',
 ];
