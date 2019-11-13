@@ -5,8 +5,12 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Model;
 use App\User;
 
-class Job extends Model
+use App\Utils\ShortableInterface;
+use App\Utils\Shortable;
+
+class Job extends Model implements ShortableInterface
 {
+    use Shortable;
 
     protected $guarded = [];
 
@@ -44,5 +48,10 @@ class Job extends Model
     public function scopePublished($query)
     {
         return $query->where('status', 'published');
+    }
+
+    public function getShortTitleAttribute()
+    {
+        return $this->short($this->title);
     }
 }

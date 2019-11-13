@@ -25,7 +25,7 @@
             @foreach($jobs as $job)
             <tr>
                 <th scope="row">{{ $job->id }}</th>
-                <td>{{ $job->title }}</td>
+                <td>{{ $job->shortTitle }}</td>
                 <td>{{ $job->company->name }}</td>
                 <td>{{ $job->administrator->name }}</td>
                 <td>
