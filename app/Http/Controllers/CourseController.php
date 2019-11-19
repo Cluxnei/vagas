@@ -93,14 +93,17 @@ class CourseController extends Controller
         try {
             $course = Course::findOrFail($id);
             $name = $course->name;
-            $deleted = $course->delete();
-            $hasJobs = $course->jobs()->count() != 0;
-            $hasUsers = $course->users()->count() != 0;
+            $course->delete();
             $message = "{$name} deletado.";
-            if(!$deleted) $message = ($hasJobs ? 'vagas' : ($hasUsers ? 'usuários' : ''));
-            return redirect()->route('courses.index')->with(['error' => !$deleted, 'message' => $message]);
+            return redirect()->route('courses.index')->with(['error' => false, 'message' => $message]);
         } catch (\Throwable $th) {
-            return redirect()->route('courses.index')->with(['error' => true, 'message' => 'Erro ao deletar curso']);
+            $message = 'Curso não encontrado.';
+            if (isset($course)) {
+                $hasJobs = $course->jobs()->count() != 0;
+                $hasUsers = $course->users()->count() != 0;
+                $message = 'Esse curso possue ' . ($hasJobs ? 'vagas' : ($hasUsers ? 'usuários' : '')) . ' associados(as).';
+            }
+            return redirect()->route('courses.index')->with(['error' => true, 'message' => $message]);
         }
     }
 }
