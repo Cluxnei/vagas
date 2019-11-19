@@ -2,28 +2,38 @@
 
 namespace App\Http\Controllers;
 
+use App\Mail\UserStatusChange;
 use App\User;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Mail;
 
 class UserController extends Controller
 {
+    private function notify(User $user)
+    {
+        Mail::to($user->email)->send(new UserStatusChange($user));
+    }
     public function approve($id)
     {
         try {
-            User::findOrFail($id)->update([
+            $user = User::findOrFail($id);
+            $user->update([
                 'approved' => 1,
             ]);
+            $this->notify($user);
             return redirect()->back()->with(['error' => false, 'message' => 'Usuário aprovado']);
-        } catch (Throwable $th) {
+        } catch (\Throwable $th) {
             return redirect()->back()->with(['error' => true, 'message' => 'Erro ao aprovar usuário']);
         }
     }
     public function reject($id)
     {
         try {
-            User::findOrFail($id)->update([
+            $user = User::findOrFail($id);
+            $user->update([
                 'approved' => 0,
             ]);
+            $this->notify($user);
             return redirect()->back()->with(['error' => false, 'message' => 'Usuário rejeitado']);
         } catch (\Throwable $th) {
             return redirect()->back()->with(['error' => true, 'message' => 'Erro ao rejeitar usuário']);
