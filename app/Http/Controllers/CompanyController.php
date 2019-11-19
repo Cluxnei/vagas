@@ -99,7 +99,9 @@ class CompanyController extends Controller
             $company->delete();
             return redirect()->route('companies.index')->with(['error' => false, 'message' => "{$name} deletada."]);
         } catch (\Throwable $th) {
-            return redirect()->back()->with(['error' => true, 'message' => 'Erro ao deletar empresa']);
+            $message = 'Empresa não encontrada';
+            $message = (isset($company) && $company->jobs()->count() != 0) ? 'Essa empresa possue vagas associadas.' : 'Erro ao deletar empresa';
+            return redirect()->back()->with(['error' => true, 'message' => $message]);
         }
     }
 }
