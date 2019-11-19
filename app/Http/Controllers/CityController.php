@@ -97,7 +97,8 @@ class CityController extends Controller
             $city->delete();
             return redirect()->route('cities.index')->with(['error' => false, 'message' => "{$name} deletada."]);
         } catch (\Throwable $th) {
-            return redirect()->back()->with(['error' => true, 'message' => 'Erro ao deletar cidade']);
+            $message = isset($city) && $city->companies()->count() != 0 ? 'Essa cidade possue empresas' : 'Cidade não encontrada';
+            return redirect()->back()->with(['error' => true, 'message' => $message]);
         }
     }
 }
