@@ -28,6 +28,7 @@ class CreateUsersTable extends Migration
             $table->rememberToken();
             $table->timestamps();
             $table->foreign('course_id')->references('id')->on('courses');
+            $table->boolean('first_login')->default(0);
         });
     }
 

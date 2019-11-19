@@ -18,7 +18,7 @@ class User extends Authenticatable
      * @var array
      */
     protected $fillable = [
-        'name', 'email', 'password', 'cpf', 'rg', 'ra', 'course_id', 'approved', 'administrator',
+        'name', 'email', 'password', 'cpf', 'rg', 'ra', 'course_id', 'approved', 'administrator', 'first_login'
     ];
 
     /**
@@ -47,6 +47,16 @@ class User extends Authenticatable
     public function isAdministrator(): bool
     {
         return $this->administrator == 1;
+    }
+
+    public function isFirstLogin()
+    {
+        return $this->first_login == 1;
+    }
+
+    public function unsetFirstLogin()
+    {
+        $this->update(['first_login' => 0]);
     }
 
     public function scopeNotAdmistrator($query)

@@ -84,10 +84,11 @@ class RegisterController extends Controller
             'name' => $data['name'],
             'email' => $data['email'],
             'password' => Hash::make($data['password']),
-            'cpf'=> $data['cpf'],
+            'cpf' => $data['cpf'],
             'rg' => $data['rg'],
             'ra' => $data['ra'],
-            'course_id' => $data['course_id']
+            'course_id' => $data['course_id'],
+            'first_login' => 1
         ]);
     }
 }

@@ -6,6 +6,11 @@ use Closure;
 
 class Approved
 {
+    private function loginAndMessage($error = true, $message = 'Sua conta ainda não foi aprovada.')
+    {
+        auth()->logout();
+        return redirect()->route('login')->with(['error' => $error, 'message' => $message]);
+    }
     /**
      * Handle an incoming request.
      *
@@ -16,9 +21,13 @@ class Approved
     public function handle($request, Closure $next)
     {
         try {
-            if (!auth()->user()->isApproved() && !auth()->user()->isAdministrator()) {
-                auth()->logout();
-                return redirect()->route('login')->with(['error' => true, 'message' => 'Sua conta ainda não foi aprovada.']);
+            $user = auth()->user();
+            if ($user->isFirstLogin()) {
+                $user->unsetFirstLogin();
+                return $this->loginAndMessage(false, 'Seu cadastro foi efetuado com sucesso, aguarde aprovação de nossos administradores.');
+            }
+            if (!$user->isApproved() && !$user->isAdministrator()) {
+                return $this->loginAndMessage();
             }
         } catch (\Throwable $th) { }
         return $next($request);
