@@ -33,7 +33,7 @@
               </div>
               <div class="form-group">
                 <label for="semesters">Semestres</label>
-                <input type="number" class="form-control {{ $errors->has('semesters') ? 'is-invalid' : '' }}" id="semesters" name="semesters" placeholder="Números de semestres" value="{{ $course->semesters ?? old('semesters') }}">
+                <input type="number" max="10" class="form-control {{ $errors->has('semesters') ? 'is-invalid' : '' }}" id="semesters" name="semesters" placeholder="Números de semestres" value="{{ $course->semesters ?? old('semesters') }}">
                 @if ($errors->has('semesters'))
                     <div class="invalid-feedback">
                         {{ $errors->first('semesters') }}

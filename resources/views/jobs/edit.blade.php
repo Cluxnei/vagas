@@ -33,7 +33,7 @@
               </div>
               <div class="form-group">
                 <label for="beginning_semester">Semestre de inicio</label>
-                <input type="number" class="form-control {{ $errors->has('beginning_semester') ? 'is-invalid' : '' }}" id="beginning_semester" name="beginning_semester" placeholder="Semestre de inicio" value="{{ $job->beginning_semester ?? old('beginning_semester') }}">
+                <input type="number" max="10" class="form-control {{ $errors->has('beginning_semester') ? 'is-invalid' : '' }}" id="beginning_semester" name="beginning_semester" placeholder="Semestre de inicio" value="{{ $job->beginning_semester ?? old('beginning_semester') }}">
                 @if ($errors->has('beginning_semester'))
                     <div class="invalid-feedback">
                         {{ $errors->first('beginning_semester') }}
@@ -42,7 +42,7 @@
               </div>
               <div class="form-group">
                 <label for="final_semester">Semestre de inicio</label>
-                <input type="number" class="form-control {{ $errors->has('final_semester') ? 'is-invalid' : '' }}" id="final_semester" name="final_semester" placeholder="Semestre de término" value="{{ $job->final_semester ?? old('final_semester') }}">
+                <input type="number" max="10" class="form-control {{ $errors->has('final_semester') ? 'is-invalid' : '' }}" id="final_semester" name="final_semester" placeholder="Semestre de término" value="{{ $job->final_semester ?? old('final_semester') }}">
                 @if ($errors->has('final_semester'))
                     <div class="invalid-feedback">
                         {{ $errors->first('final_semester') }}

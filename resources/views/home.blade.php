@@ -12,22 +12,22 @@
             <div class="card">
                 <div class="card-body">
                     @isset($jobs)
-                    @if(!$jobs->isEmpty())
-                    @foreach($jobs as $job)
-                    <a href="{{ route('jobs.userView', $job->id) }}">
-                        {{ $job->title }}
-                    </a>
-                    @endforeach
-                    @endif
+                        @unless($jobs->isEmpty())
+                            @foreach($jobs as $job)
+                                <a href="{{ route('jobs.userView', $job->id) }}">
+                                    {{ $job->title }}
+                                </a>
+                            @endforeach
+                        @endunless
                     @endisset
                     @isset($result)
-                    @if(!$result->isEmpty())
-                    @foreach($result as $job)
-                    <a href="{{ route('jobs.userView', $job->id) }}">
-                        {{ $job->title }}
-                    </a>
-                    @endforeach
-                    @endif
+                        @unless($result->isEmpty())
+                            @foreach($result as $job)
+                                <a href="{{ route('jobs.userView', $job->id) }}">
+                                    {{ $job->title }}
+                                </a>
+                            @endforeach
+                        @endunless
                     @endisset
                 </div>
             </div>
