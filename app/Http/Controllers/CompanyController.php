@@ -70,7 +70,9 @@ class CompanyController extends Controller
      */
     public function edit($id)
     {
-        //
+        $cities = City::all();
+        $company = Company::findOrFail($id);
+        return view('companies.edit', compact('company', 'cities'));
     }
 
     /**
@@ -82,7 +84,18 @@ class CompanyController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        $company = Company::findOrFail($id);
+        $data = $request->validate([
+            'name' => ['required', 'string', 'max:255'],
+            'email' => ['required', 'email', 'string', 'max:255'],
+            'city_id' => ['required'],
+        ]);
+        try {
+            $company->update($data);
+            return redirect()->route('companies.index')->with(['error' => false, 'message' => "{$request->name} atualizada."]);
+        } catch (\Throwable $th) {
+            return redirect()->back()->withInput()->with(['error' => true, 'message' => 'Erro ao atualizar empresa']);
+        }
     }
 
     /**

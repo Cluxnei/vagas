@@ -28,6 +28,9 @@
                 <td>{{ $company->email }}</td>
                 <td>{{ $company->city->name }}</td>
                 <td>
+                    <a href="{{ route('companies.edit', $company->id) }}" class="btn btn-info">
+                        <i class="fas fa-edit"></i>
+                    </a>
                     <form action="{{ route('companies.destroy', $company->id) }}" method="POST">
                         @csrf
                         @method('DELETE')
