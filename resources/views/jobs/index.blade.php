@@ -44,24 +44,28 @@
                             <li>
                                 <a href="{{ route('jobs.changeStatus', ['archived', $job->id]) }}" class="btn btn-block btn-info p-2">
                                     <i class="fas fa-archive"></i>
+                                    arquivar
                                 </a>
                             </li>
                             @elseif($job->isPendent())
                             <li>
                                 <a href="{{ route('jobs.changeStatus', ['published', $job->id]) }}" class="btn btn-block btn-info p-2">
                                     <i class="fas fa-globe-americas"></i>
+                                    publicar
                                 </a>
                             </li>
                             <li class="divider"></li>
                             <li>
                                 <a href="{{ route('jobs.changeStatus', ['archived', $job->id]) }}" class="btn btn-block btn-info p-2">
                                     <i class="fas fa-archive"></i>
+                                    arquivar
                                 </a>
                             </li>
                             @else
                             <li>
                                 <a href="{{ route('jobs.changeStatus', ['published', $job->id]) }}" class="btn btn-block btn-info p-2">
                                     <i class="fas fa-globe-americas"></i>
+                                    publicar
                                 </a>
                             </li>
                             @endif

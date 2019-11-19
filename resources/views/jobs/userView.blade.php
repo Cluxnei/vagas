@@ -35,13 +35,11 @@
                 <label>Curso(s)</label>
                 <h2 class="form-control">{{ $job->courses->pluck('name')->implode(', ') }}</h2>
               </div>
-
             </div>
             <!-- /.box-body -->
           </div>
         </div>
         <!-- /.box -->
-
       </div>
       <!--/.col (full) -->
     </div>

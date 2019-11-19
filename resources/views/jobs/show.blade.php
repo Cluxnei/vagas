@@ -22,10 +22,13 @@
                 <button class="btn btn-info btn-block">
                     @if($job->isPublished())
                     <i class="fas fa-globe-americas text-white"></i>
+                    publicado
                     @elseif($job->isPendent())
                     <i class="fas fa-circle-notch text-white"></i>
+                    pendente
                     @else
                     <i class="fas fa-archive text-white"></i>
+                    arquivado
                     @endif
                 </button>
                 <label>Semestre de inicio</label>
