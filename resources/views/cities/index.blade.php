@@ -26,6 +26,9 @@
                 <td>{{ $city->name }}</td>
                 <td>{{ $city->uf }}</td>
                 <td>
+                    <a href="{{ route('cities.edit', $city->id) }}" class="btn btn-info">
+                        <i class="fas fa-edit"></i>
+                    </a>
                     <form action="{{ route('cities.destroy', $city->id) }}" method="POST">
                         @csrf
                         @method('DELETE')

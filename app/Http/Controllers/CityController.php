@@ -68,7 +68,8 @@ class CityController extends Controller
      */
     public function edit($id)
     {
-        //
+        $city = City::findOrFail($id);
+        return view('cities.edit', compact('city'));
     }
 
     /**
@@ -80,7 +81,17 @@ class CityController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        $data = $request->validate([
+            'name' => ['required', 'string', 'max:255'],
+            'uf' => ['required', 'string', 'max:2'],
+        ]);
+        $data['uf'] = strtoupper($data['uf']);
+        try {
+            City::findOrFail($id)->update($data);
+            return redirect()->route('cities.index')->with(['error' => false, 'message' => "{$request->name} atualizada."]);
+        } catch (\Throwable $th) {
+            return redirect()->route('cities.index')->with(['error' => true, 'message' => 'Erro ao atualizar cidade']);
+        }
     }
 
     /**
