@@ -67,7 +67,8 @@ class CourseController extends Controller
      */
     public function edit($id)
     {
-        //
+        $course = Course::findOrFail($id);
+        return view('courses.edit', compact('course'));
     }
 
     /**
@@ -79,7 +80,17 @@ class CourseController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        $course = Course::findOrFail($id);
+        $data = $request->validate([
+            'name' => ['required', 'string', 'max:255', 'min:2'],
+            'semesters' => ['required'],
+        ]);
+        try {
+            $course->update($data);
+            return redirect()->route('courses.index')->with(['error' => false, 'message' => "{$request->name} atualizado."]);
+        } catch (\Throwable $th) {
+            return redirect()->back()->withInput()->with(['error' => true, 'message' => 'Erro ao atualizar curso.']);
+        }
     }
 
     /**

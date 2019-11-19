@@ -28,6 +28,9 @@
                 <td>{{ $course->semesters }}</td>
                 <td>{{ $course->users()->count() }}</td>
                 <td>
+                    <a href="{{ route('courses.edit', $course->id) }}" class="btn btn-info">
+                        <i class="fas fa-edit"></i>
+                    </a>
                     <form action="{{ route('courses.destroy', $course->id) }}" method="POST">
                         @csrf
                         @method('DELETE')
