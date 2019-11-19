@@ -77,6 +77,9 @@
                         <a href="{{ route('jobs.show', $job->id) }}" class="btn btn-success">
                             <i class="fas fa-eye"></i>
                         </a>
+                        <a href="{{ route('jobs.edit', $job->id) }}" class="btn btn-info">
+                            <i class="fas fa-edit"></i>
+                        </a>
                         <form action="{{ route('jobs.destroy', $job->id) }}" method="POST">
                             @csrf
                             @method('DELETE')

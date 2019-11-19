@@ -123,7 +123,10 @@ class JobController extends Controller
      */
     public function edit($id)
     {
-        //
+        $companies = Company::all();
+        $courses = Course::all();
+        $job = Job::findOrFail($id);
+        return view('jobs.edit', compact('courses', 'companies', 'job'));
     }
 
     /**
@@ -135,7 +138,35 @@ class JobController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        $data = $request->validate([
+            'title' => ['required', 'max:255'],
+            'requirement' => ['required'],
+            'benefits' => ['required'],
+            'company_id' => ['required', 'numeric'],
+            'course_id' => ['required', 'array'],
+            'status' => ['nullable', 'string'],
+            'beginning_semester' => ['nullable', 'numeric'],
+            'final_semester' => ['nullable', 'numeric'],
+            'link' => ['nullable', 'url'],
+        ]);
+
+        try {
+            $job = Job::findOrFail($id);
+            $data['administrator_id'] = auth()->user()->id;
+            $courses = $data['course_id'];
+            unset($data['course_id']);
+            $job->update($data);
+            $job->courses()->sync($courses);
+            return redirect()->route('jobs.index')->with([
+                'error' => false,
+                'message' => "{$job->title} atualizado.",
+            ]);
+        } catch (\Throwable $th) {
+            return redirect()->route('jobs.index')->with([
+                'error' => true,
+                'message' => "Erro ao atualizar essa vaga.",
+            ]);
+        }
     }
 
     /**

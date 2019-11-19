@@ -14,16 +14,17 @@
         <!-- general form elements -->
         <div class="box box-primary">
           <div class="box-header with-border">
-            <h3 class="box-title">Nova Vaga</h3>
+            <h3 class="box-title">Editar {{ $job->title }}</h3>
           </div>
           <!-- /.box-header -->
           <!-- form start -->
-          <form role="form" method="POST" action="{{ route('jobs.store') }}">
+          <form role="form" method="POST" action="{{ route('jobs.update', $job->id) }}">
             @csrf
+            @method('PUT')
             <div class="box-body">
               <div class="form-group">
                 <label for="title">Título</label>
-                <input type="text" class="form-control {{ $errors->has('title') ? 'is-invalid' : '' }}" name="title" id="title" placeholder="Título da Vaga" value="{{ old('title') }}">
+                <input type="text" class="form-control {{ $errors->has('title') ? 'is-invalid' : '' }}" name="title" id="title" placeholder="Título da Vaga" value="{{ $job->title ?? old('title') }}">
                 @if ($errors->has('title'))
                     <div class="invalid-feedback">
                         {{ $errors->first('title') }}
@@ -32,7 +33,7 @@
               </div>
               <div class="form-group">
                 <label for="beginning_semester">Semestre de inicio</label>
-                <input type="number" class="form-control {{ $errors->has('beginning_semester') ? 'is-invalid' : '' }}" id="beginning_semester" name="beginning_semester" placeholder="Semestre de inicio" value="{{ old('beginning_semester') }}">
+                <input type="number" class="form-control {{ $errors->has('beginning_semester') ? 'is-invalid' : '' }}" id="beginning_semester" name="beginning_semester" placeholder="Semestre de inicio" value="{{ $job->beginning_semester ?? old('beginning_semester') }}">
                 @if ($errors->has('beginning_semester'))
                     <div class="invalid-feedback">
                         {{ $errors->first('beginning_semester') }}
@@ -41,7 +42,7 @@
               </div>
               <div class="form-group">
                 <label for="final_semester">Semestre de inicio</label>
-                <input type="number" class="form-control {{ $errors->has('final_semester') ? 'is-invalid' : '' }}" id="final_semester" name="final_semester" placeholder="Semestre de término" value="{{ old('final_semester') }}">
+                <input type="number" class="form-control {{ $errors->has('final_semester') ? 'is-invalid' : '' }}" id="final_semester" name="final_semester" placeholder="Semestre de término" value="{{ $job->final_semester ?? old('final_semester') }}">
                 @if ($errors->has('final_semester'))
                     <div class="invalid-feedback">
                         {{ $errors->first('final_semester') }}
@@ -50,7 +51,7 @@
               </div>
               <div class="form-group">
                 <label for="requirement">Requisitos</label>
-                <textarea class="form-control {{ $errors->has('requirement') ? 'is-invalid' : '' }}" id="requirement" name="requirement">{{ old('requirement') }}</textarea>
+                <textarea class="form-control {{ $errors->has('requirement') ? 'is-invalid' : '' }}" id="requirement" name="requirement">{{ $job->requirement ?? old('requirement') }}</textarea>
                 @if ($errors->has('requirement'))
                     <div class="invalid-feedback">
                         {{ $errors->first('requirement') }}
@@ -59,7 +60,7 @@
               </div>
               <div class="form-group">
                 <label for="benefits">Benefícios</label>
-                <textarea class="form-control {{ $errors->has('benefits') ? 'is-invalid' : '' }}" id="benefits" name="benefits">{{ old('benefits') }}</textarea>
+                <textarea class="form-control {{ $errors->has('benefits') ? 'is-invalid' : '' }}" id="benefits" name="benefits">{{ $job->benefits ?? old('benefits') }}</textarea>
                 @if ($errors->has('benefits'))
                     <div class="invalid-feedback">
                         {{ $errors->first('benefits') }}
@@ -68,7 +69,7 @@
               </div>
                 <div class="form-group">
                     <label for="link">Link</label>
-                    <input type="url" class="form-control {{ $errors->has('link') ? 'is-invalid' : '' }}" name="link" id="link" placeholder="Link da vaga" value="{{ old('link') }}">
+                    <input type="url" class="form-control {{ $errors->has('link') ? 'is-invalid' : '' }}" name="link" id="link" placeholder="Link da vaga" value="{{ $job->link ?? old('link') }}">
                     @if ($errors->has('link'))
                         <div class="invalid-feedback">
                             {{ $errors->first('link') }}
@@ -78,9 +79,17 @@
                 <div class="form-group">
                     <label for="status">Status</label>
                     <select class="select2 form-control {{ $errors->has('status') ? 'is-invalid' : '' }}" name="status" id="status">
+                        @if($job->isPendent())
                         <option value="pendent" selected>Pendente</option>
                         <option value="published">Público</option>
                         <option value="archived">Arquivado</option>
+                        @elseif($job->isPublished())
+                        <option value="published" selected>Público</option>
+                        <option value="archived">Arquivado</option>
+                        @else
+                        <option value="archived" selected>Arquivado</option>
+                        <option value="published">Público</option>
+                        @endif
                     </select>
                     @if ($errors->has('status'))
                         <div class="invalid-feedback">
@@ -91,8 +100,13 @@
                 <div class="form-group">
                     <label for="course_id">Cursos</label>
                     <select multiple class="select2 form-control {{ $errors->has('course_id') ? 'is-invalid' : '' }}" name="course_id[]">
+                        @foreach($job->courses as $course)
+                        <option value="{{ $course->id }}" selected>{{ $course->name }}</option>
+                        @endforeach
                         @foreach($courses as $course)
+                        @unless($job->courses()->find($course->id))
                         <option value="{{ $course->id }}">{{ $course->name }}</option>
+                        @endunless
                         @endforeach
                     </select>
                     @if ($errors->has('course_id'))
@@ -104,9 +118,11 @@
                 <div class="form-group">
                     <label for="name">Empresa</label>
                     <select class="select2 form-control {{ $errors->has('company_id') ? 'is-invalid' : '' }}" name="company_id">
-                        <option value="">Selecione uma cidade</option>
+                        <option value="{{ $job->company->id }}" selected>{{ $job->company->name }}</option>
                         @foreach($companies as $company)
+                        @unless($job->company->id == $company->id)
                         <option value="{{ $company->id }}">{{ $company->name }}</option>
+                        @endunless
                         @endforeach
                     </select>
                     @if ($errors->has('company_id'))
