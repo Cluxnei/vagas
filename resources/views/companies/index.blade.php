@@ -17,7 +17,7 @@
                 <th scope="col">Nome</th>
                 <th scope="col">Email</th>
                 <th scope="col">Cidade</th>
-                <th scope="col">ediar</th>
+                <th scope="col">editar</th>
                 <th scope="col">deletar</th>
             </tr>
         </thead>

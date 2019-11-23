@@ -17,7 +17,8 @@
                 <th scope="col">Nome</th>
                 <th scope="col">Semestres</th>
                 <th scope="col">Usuários</th>
-                <th scope="col">ações</th>
+                <th scope="col">editar</th>
+                <th scope="col">deletar</th>
             </tr>
         </thead>
         <tbody>
@@ -33,8 +34,6 @@
                     </a>
                 </td>
                 <td>
-                <td></td>
-                <td></td>
                     <form action="{{ route('courses.destroy', $course->id) }}" method="POST" class="delete-form">
                         @csrf
                         @method('DELETE')

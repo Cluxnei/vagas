@@ -22,6 +22,8 @@ Route::middleware(['auth', 'approved'])->group(function () {
     #Users
     Route::name('users.')->prefix('users')->group(function () {
         Route::get('administrators', 'UserController@administratorsIndex')->name('administrators');
+        Route::get('administrators/{id}/edit', 'UserController@administratorEdit')->name('administrators.edit');
+        Route::put('administrators/{id}', 'UserController@administratorUpdate')->name('administrators.update');
         Route::get('approve/{id}', 'UserController@approve')->name('approve');
         Route::get('reject/{id}', 'UserController@reject')->name('reject');
     });

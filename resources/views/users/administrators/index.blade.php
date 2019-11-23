@@ -16,6 +16,8 @@
                 <th scope="col">cpf</th>
                 <th scope="col">rg</th>
                 <th scope="col">ra</th>
+                <th scope="col">editar</th>
+                <th scope="col">remover</th>
             </tr>
         </thead>
         <tbody>
@@ -27,6 +29,20 @@
                 <td>{{ $administrator->cpf }}</td>
                 <td>{{ $administrator->rg }}</td>
                 <td>{{ $administrator->ra ?? '-' }}</td>
+                <td>
+                    <a href="{{ route('users.administrators.edit', $administrator->id) }}" class="btn btn-info">
+                        <i class="fas fa-eye"></i>
+                    </a>
+                </td>
+                <td>
+                    <form action="{{ route('users.destroy', $administrator->id) }}" method="POST" class="delete-form">
+                        @csrf
+                        @method('DELETE')
+                        <button type="submit" class="btn btn-danger">
+                            <i class="fas fa-trash"></i>
+                        </button>
+                    </form>
+                </td>
             </tr>
             @endforeach
         </tbody>

@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Mail\UserStatusChange;
+use App\Models\Course;
 use App\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Mail;
@@ -55,36 +56,25 @@ class UserController extends Controller
         return view('users.index', compact('users'));
     }
 
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function create()
+    public function administratorEdit($id)
     {
-        //
+        $administrator = User::administrator()->findOrFail($id);
+        return view('users.administrators.edit', compact('administrator'));
     }
 
-    /**
-     * Store a newly created resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
-     */
-    public function store(Request $request)
+    public function administratorUpdate(Request $request)
     {
-        //
-    }
+        $data = $request->validate([
+            'name' => ['required', 'string', 'max:255'],
+            'email' => ['required', 'string', 'email', 'max:255', 'unique:users'],
+            'password' => ['required', 'string', 'min:8', 'confirmed'],
+            'cpf' => ['required', 'string', 'min:11', 'max:14', 'unique:users'],
+            'rg' => ['string', 'min:9', 'max:13', 'unique:users'],
+            'course_id' => ['required'],
+        ]);
 
-    /**
-     * Display the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function show($id)
-    {
-        //
+        $data['cpf'] = preg_replace('/(\.)|(\-)/', '', $data['cpf']);
+        $data['rg'] = preg_replace('/(\.)|(\-)/', '', $data['rg']);
     }
 
     /**
@@ -118,6 +108,19 @@ class UserController extends Controller
      */
     public function destroy($id)
     {
-        //
+        try {
+            $user = User::findOrFail($id);
+            $name = $user->name;
+            $user->delete();
+            $message = "{$name} deletado.";
+            return redirect()->route('users.administrators')->with(['error' => false, 'message' => $message]);
+        } catch (\Throwable $th) {
+            $message = 'Usuário não encontrado.';
+            if (isset($user)) {
+                $hasJobs = $user->jobs()->count() != 0;
+                $message = 'Esse usuário possue vagas associadas.';
+            }
+            return redirect()->route('users.administrators')->with(['error' => true, 'message' => $message]);
+        }
     }
 }
