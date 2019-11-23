@@ -16,7 +16,8 @@
                 <th scope="col">#</th>
                 <th scope="col">Nome</th>
                 <th scope="col">UF</th>
-                <th scope="col">ações</th>
+                <th scope="col">editar</th>
+                <th scope="col">excluir</th>
             </tr>
         </thead>
         <tbody>
@@ -29,7 +30,9 @@
                     <a href="{{ route('cities.edit', $city->id) }}" class="btn btn-info">
                         <i class="fas fa-edit"></i>
                     </a>
-                    <form action="{{ route('cities.destroy', $city->id) }}" method="POST">
+                </td>
+                <td>
+                    <form action="{{ route('cities.destroy', $city->id) }}" method="POST" class="delete-form">
                         @csrf
                         @method('DELETE')
                         <button type="submit" class="btn btn-danger">

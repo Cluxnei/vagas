@@ -31,7 +31,11 @@
                     <a href="{{ route('courses.edit', $course->id) }}" class="btn btn-info">
                         <i class="fas fa-edit"></i>
                     </a>
-                    <form action="{{ route('courses.destroy', $course->id) }}" method="POST">
+                </td>
+                <td>
+                <td></td>
+                <td></td>
+                    <form action="{{ route('courses.destroy', $course->id) }}" method="POST" class="delete-form">
                         @csrf
                         @method('DELETE')
                         <button type="submit" class="btn btn-danger">

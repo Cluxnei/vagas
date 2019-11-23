@@ -59,6 +59,22 @@
         $('input.cpf').mask('000.000.000-00');
         $('input.rg').mask('00.000.000-0');
         $('.data-table').dataTable();
+        $('.delete-form').submit(function(e){
+            e.preventDefault();
+            Swal.fire({
+                title: 'Tem certeza?',
+                text: "Essa ação não pode ser revertida!",
+                icon: 'warning',
+                showCancelButton: true,
+                confirmButtonColor: '#3085d6',
+                cancelButtonColor: '#d33',
+                confirmButtonText: 'Sim, delete isso!'
+            }).then((result) => {
+                if (result.value) {
+                    this.submit();
+                }
+            })
+        })
     });
 </script>
 </body>

@@ -80,7 +80,7 @@
                         <a href="{{ route('jobs.edit', $job->id) }}" class="btn btn-info">
                             <i class="fas fa-edit"></i>
                         </a>
-                        <form action="{{ route('jobs.destroy', $job->id) }}" method="POST">
+                        <form action="{{ route('jobs.destroy', $job->id) }}" method="POST" class="delete-form">
                             @csrf
                             @method('DELETE')
                             <button type="submit" class="btn btn-danger">

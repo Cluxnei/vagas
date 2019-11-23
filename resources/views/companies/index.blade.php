@@ -17,7 +17,8 @@
                 <th scope="col">Nome</th>
                 <th scope="col">Email</th>
                 <th scope="col">Cidade</th>
-                <th scope="col">ações</th>
+                <th scope="col">ediar</th>
+                <th scope="col">deletar</th>
             </tr>
         </thead>
         <tbody>
@@ -31,7 +32,9 @@
                     <a href="{{ route('companies.edit', $company->id) }}" class="btn btn-info">
                         <i class="fas fa-edit"></i>
                     </a>
-                    <form action="{{ route('companies.destroy', $company->id) }}" method="POST">
+                </td>
+                <td>
+                    <form action="{{ route('companies.destroy', $company->id) }}" method="POST" class="delete-form">
                         @csrf
                         @method('DELETE')
                         <button type="submit" class="btn btn-danger">
