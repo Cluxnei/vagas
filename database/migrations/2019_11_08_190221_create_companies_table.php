@@ -17,6 +17,8 @@ class CreateCompaniesTable extends Migration
             $table->bigIncrements('id');
             $table->string('name');
             $table->string('email');
+            $table->string('phone')->nullable();
+            $table->string('site')->nullable();
             $table->unsignedBigInteger('city_id');
             $table->timestamps();
             $table->foreign('city_id')->references('id')->on('cities');

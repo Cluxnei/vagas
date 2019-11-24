@@ -14,7 +14,7 @@ return [
     |
     */
 
-    'title' => 'Vagas',
+    'title' => 'Fatec Vagas',
     'title_prefix' => '',
     'title_postfix' => '',
 
@@ -30,12 +30,12 @@ return [
     |
     */
 
-    'logo' => '<b>Vaga</b>s',
+    'logo' => '<b>Fatec</b> Vagas',
     'logo_img' => 'vendor/adminlte/dist/img/AdminLTELogo.png',
     'logo_img_class' => 'brand-image-xl',
     'logo_img_xl' => null,
     'logo_img_xl_class' => 'brand-image-xs',
-    'logo_img_alt' => 'Vagas',
+    'logo_img_alt' => 'Fatec Vagas',
 
     /*
     |--------------------------------------------------------------------------

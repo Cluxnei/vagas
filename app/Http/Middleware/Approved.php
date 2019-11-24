@@ -3,6 +3,8 @@
 namespace App\Http\Middleware;
 
 use Closure;
+use Illuminate\Http\Request;
+use Throwable;
 
 class Approved
 {
@@ -14,8 +16,8 @@ class Approved
     /**
      * Handle an incoming request.
      *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  \Closure  $next
+     * @param  Request  $request
+     * @param Closure $next
      * @return mixed
      */
     public function handle($request, Closure $next)
@@ -29,7 +31,7 @@ class Approved
             if (!$user->isApproved() && !$user->isAdministrator()) {
                 return $this->loginAndMessage();
             }
-        } catch (\Throwable $th) { }
+        } catch (Throwable $th) { }
         return $next($request);
     }
 }

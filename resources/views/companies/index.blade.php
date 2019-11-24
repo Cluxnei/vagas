@@ -17,6 +17,8 @@
                 <th scope="col">Nome</th>
                 <th scope="col">Email</th>
                 <th scope="col">Cidade</th>
+                <th scope="col">Telefone</th>
+                <th scope="col">Site</th>
                 <th scope="col">editar</th>
                 <th scope="col">deletar</th>
             </tr>
@@ -28,6 +30,8 @@
                 <td>{{ $company->name }}</td>
                 <td>{{ $company->email }}</td>
                 <td>{{ $company->city->name }}</td>
+                <td>{{ $company->phone }}</td>
+                <td><a href="{{ $company->site }}">acessar</a></td>
                 <td>
                     <a href="{{ route('companies.edit', $company->id) }}" class="btn btn-info">
                         <i class="fas fa-edit"></i>

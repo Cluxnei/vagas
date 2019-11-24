@@ -6,8 +6,10 @@ use App\Mail\UserStatusChange;
 use App\Models\Course;
 use App\User;
 use Illuminate\Http\Request;
+use Illuminate\Http\Response;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Mail;
+use Throwable;
 
 class UserController extends Controller
 {
@@ -24,7 +26,7 @@ class UserController extends Controller
             ]);
             $this->notify($user);
             return redirect()->back()->with(['error' => false, 'message' => 'Usuário aprovado']);
-        } catch (\Throwable $th) {
+        } catch (Throwable $th) {
             return redirect()->back()->with(['error' => true, 'message' => 'Erro ao aprovar usuário']);
         }
     }
@@ -37,7 +39,7 @@ class UserController extends Controller
             ]);
             $this->notify($user);
             return redirect()->back()->with(['error' => false, 'message' => 'Usuário rejeitado']);
-        } catch (\Throwable $th) {
+        } catch (Throwable $th) {
             return redirect()->back()->with(['error' => true, 'message' => 'Erro ao rejeitar usuário']);
         }
     }
@@ -45,7 +47,7 @@ class UserController extends Controller
     /**
      * Display a listing of the resource.
      *
-     * @return \Illuminate\Http\Response
+     * @return Response
      */
     public function index()
     {
@@ -62,7 +64,7 @@ class UserController extends Controller
      * Show the form for editing the specified resource.
      *
      * @param  int  $id
-     * @return \Illuminate\Http\Response
+     * @return Response
      */
     public function edit($id)
     {
@@ -73,33 +75,31 @@ class UserController extends Controller
     /**
      * Update the specified resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
+     * @param Request $request
      * @param  int  $id
-     * @return \Illuminate\Http\Response
+     * @return Response
      */
     public function update(Request $request, $id)
     {
         $user = User::findOrFail($id);
-        $data = $request->validate([
+        $validateArray = [
             'name' => ['required', 'string', 'max:255'],
             'email' => ['required', 'string', 'email', 'max:255'],
-            'password' => ['required', 'string', 'min:8', 'confirmed'],
             'cpf' => ['required', 'string', 'min:11', 'max:14'],
-            'rg' => ['string', 'min:9', 'max:13'],
-            'course_id' => ['required'],
-        ]);
+            'rg' => ['string', 'min:9', 'max:13']
+        ];
+        $data = $request->validate($validateArray);
         $data['cpf'] = preg_replace('/(\.)|(\-)/', '', $data['cpf']);
         $data['rg'] = preg_replace('/(\.)|(\-)/', '', $data['rg']);
-        $data['password'] = Hash::make($data['password']);
         $user->update($data);
-        return redirect()->back()->with(['error' => false, 'message' => "{$request->name} atualizado"]);
+        return redirect()->route('users.administrators')->with(['error' => false, 'message' => "{$request->name} atualizado"]);
     }
 
     /**
      * Remove the specified resource from storage.
      *
      * @param  int  $id
-     * @return \Illuminate\Http\Response
+     * @return Response
      */
     public function destroy($id)
     {
@@ -109,7 +109,7 @@ class UserController extends Controller
             $user->delete();
             $message = "{$name} deletado.";
             return redirect()->route('users.administrators')->with(['error' => false, 'message' => $message]);
-        } catch (\Throwable $th) {
+        } catch (Throwable $th) {
             $message = 'Usuário não encontrado.';
             if (isset($user)) {
                 $hasJobs = $user->jobs()->count() != 0;

@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Job;
+use Exception;
 use Illuminate\Http\Request;
 
 class HomeController extends Controller
@@ -11,7 +12,7 @@ class HomeController extends Controller
     {
         try {
             $jobs = auth()->user()->course->jobs()->published()->orderBy('id', 'desc')->get();
-        } catch (\Exception $ex) {
+        } catch (Exception $ex) {
             $jobs = collect([]);
         }
         $hr = date('h');

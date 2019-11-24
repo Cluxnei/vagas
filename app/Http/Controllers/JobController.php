@@ -6,6 +6,8 @@ use App\Models\Company;
 use App\Models\Course;
 use App\Models\Job;
 use Illuminate\Http\Request;
+use Illuminate\Http\Response;
+use Throwable;
 
 class JobController extends Controller
 {
@@ -25,7 +27,7 @@ class JobController extends Controller
                     'error' => false,
                     'message' => 'Vaga atualizada.'
                 ]);
-        } catch (\Throwable $th) {
+        } catch (Throwable $th) {
             return redirect()->route('jobs.index')
                 ->with([
                     'error' => true,
@@ -36,7 +38,7 @@ class JobController extends Controller
     /**
      * Display a listing of the resource.
      *
-     * @return \Illuminate\Http\Response
+     * @return Response
      */
     public function index()
     {
@@ -47,7 +49,7 @@ class JobController extends Controller
     /**
      * Show the form for creating a new resource.
      *
-     * @return \Illuminate\Http\Response
+     * @return Response
      */
     public function create()
     {
@@ -59,8 +61,8 @@ class JobController extends Controller
     /**
      * Store a newly created resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
+     * @param Request $request
+     * @return Response
      */
     public function store(Request $request)
     {
@@ -86,7 +88,7 @@ class JobController extends Controller
                 'error' => false,
                 'message' => "{$job->title} adicionado.",
             ]);
-        } catch (\Throwable $th) {
+        } catch (Throwable $th) {
             throw $th;
             return redirect()->route('jobs.index')->with([
                 'error' => true,
@@ -99,14 +101,14 @@ class JobController extends Controller
      * Display the specified resource.
      *
      * @param  int  $id
-     * @return \Illuminate\Http\Response
+     * @return Response
      */
     public function show($id)
     {
         try {
             $job = Job::findOrFail($id);
             return view('jobs.show', compact('job'));
-        } catch (\Throwable $th) {
+        } catch (Throwable $th) {
             return redirect()->route('jobs.index')
                 ->with([
                     'error' => true,
@@ -119,7 +121,7 @@ class JobController extends Controller
      * Show the form for editing the specified resource.
      *
      * @param  int  $id
-     * @return \Illuminate\Http\Response
+     * @return Response
      */
     public function edit($id)
     {
@@ -132,9 +134,9 @@ class JobController extends Controller
     /**
      * Update the specified resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
+     * @param Request $request
      * @param  int  $id
-     * @return \Illuminate\Http\Response
+     * @return Response
      */
     public function update(Request $request, $id)
     {
@@ -161,7 +163,7 @@ class JobController extends Controller
                 'error' => false,
                 'message' => "{$job->title} atualizado.",
             ]);
-        } catch (\Throwable $th) {
+        } catch (Throwable $th) {
             return redirect()->route('jobs.index')->with([
                 'error' => true,
                 'message' => "Erro ao atualizar essa vaga.",
@@ -173,7 +175,7 @@ class JobController extends Controller
      * Remove the specified resource from storage.
      *
      * @param  int  $id
-     * @return \Illuminate\Http\Response
+     * @return Response
      */
     public function destroy($id)
     {
@@ -187,7 +189,7 @@ class JobController extends Controller
                     'error' => false,
                     'message' => "{$title} deletado."
                 ]);
-        } catch (\Throwable $th) {
+        } catch (Throwable $th) {
             return redirect()->route('jobs.index')
                 ->with([
                     'error' => true,

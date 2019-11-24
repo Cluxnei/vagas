@@ -53,14 +53,14 @@ DataTable.Buttons.pdfMake = function (_) {
 		return _pdfMake();
 	}
 	pdfmake = m_ake;
-}
+};
 
 DataTable.Buttons.jszip = function (_) {
 	if ( ! _ ) {
 		return _jsZip();
 	}
 	jszip = _;
-}
+};
 
 
 /* * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *
@@ -1177,13 +1177,13 @@ DataTable.ext.buttons.excelHtml5 = {
 			addRow( data.header, rowPos );
 			$('row:last c', rels).attr( 's', '2' ); // bold
 		}
-	
+
 		dataStartRow = rowPos;
 
 		for ( var n=0, ie=data.body.length ; n<ie ; n++ ) {
 			addRow( data.body[n], rowPos );
 		}
-	
+
 		dataEndRow = rowPos;
 
 		if ( config.footer && data.footer ) {

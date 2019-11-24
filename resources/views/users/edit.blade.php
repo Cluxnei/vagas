@@ -47,7 +47,7 @@
                             </div>
                             <div class="form-group">
                                 <label for="cpf">CPF</label>
-                                <input type="text" class="form-control {{ $errors->has('cpf') ? 'is-invalid' : '' }}"
+                                <input type="text" class="cpf form-control {{ $errors->has('cpf') ? 'is-invalid' : '' }}"
                                        id="cpf" name="cpf" placeholder="CPF"
                                        value="{{ $user->cpf ?? old('cpf') }}">
                                 @if ($errors->has('cpf'))
@@ -58,7 +58,7 @@
                             </div>
                             <div class="form-group">
                                 <label for="rg">RG</label>
-                                <input type="text" class="form-control {{ $errors->has('rg') ? 'is-invalid' : '' }}"
+                                <input type="text" class="rg form-control {{ $errors->has('rg') ? 'is-invalid' : '' }}"
                                        id="rg" name="rg" placeholder="RG"
                                        value="{{ $user->rg ?? old('rg') }}">
                                 @if ($errors->has('rg'))

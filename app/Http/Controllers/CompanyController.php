@@ -5,13 +5,15 @@ namespace App\Http\Controllers;
 use App\Models\City;
 use App\Models\Company;
 use Illuminate\Http\Request;
+use Illuminate\Http\Response;
+use Throwable;
 
 class CompanyController extends Controller
 {
     /**
      * Display a listing of the resource.
      *
-     * @return \Illuminate\Http\Response
+     * @return Response
      */
     public function index()
     {
@@ -22,7 +24,7 @@ class CompanyController extends Controller
     /**
      * Show the form for creating a new resource.
      *
-     * @return \Illuminate\Http\Response
+     * @return Response
      */
     public function create()
     {
@@ -33,8 +35,8 @@ class CompanyController extends Controller
     /**
      * Store a newly created resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
+     * @param Request $request
+     * @return Response
      */
     public function store(Request $request)
     {
@@ -42,11 +44,13 @@ class CompanyController extends Controller
             'name' => ['required', 'string', 'max:255'],
             'email' => ['required', 'unique:companies', 'email', 'string', 'max:255'],
             'city_id' => ['required'],
+            'phone' => ['required', 'string', 'max:255'],
+            'site' => ['required', 'string', 'max:255']
         ]);
         try {
             $company = Company::create($data);
             return redirect()->route('companies.index')->with(['error' => false, 'message' => "{$company->name} adicionada."]);
-        } catch (\Throwable $th) {
+        } catch (Throwable $th) {
             return redirect()->back()->withInput()->with(['error' => true, 'message' => 'Erro ao adicionar empresa']);
         }
     }
@@ -54,8 +58,8 @@ class CompanyController extends Controller
     /**
      * Display the specified resource.
      *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
+     * @param int $id
+     * @return Response
      */
     public function show($id)
     {
@@ -65,8 +69,8 @@ class CompanyController extends Controller
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
+     * @param int $id
+     * @return Response
      */
     public function edit($id)
     {
@@ -78,9 +82,9 @@ class CompanyController extends Controller
     /**
      * Update the specified resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
+     * @param Request $request
+     * @param int $id
+     * @return Response
      */
     public function update(Request $request, $id)
     {
@@ -89,11 +93,13 @@ class CompanyController extends Controller
             'name' => ['required', 'string', 'max:255'],
             'email' => ['required', 'email', 'string', 'max:255'],
             'city_id' => ['required'],
+            'phone' => ['required', 'string', 'max:255'],
+            'site' => ['required', 'string', 'max:255']
         ]);
         try {
             $company->update($data);
             return redirect()->route('companies.index')->with(['error' => false, 'message' => "{$request->name} atualizada."]);
-        } catch (\Throwable $th) {
+        } catch (Throwable $th) {
             return redirect()->back()->withInput()->with(['error' => true, 'message' => 'Erro ao atualizar empresa']);
         }
     }
@@ -101,8 +107,8 @@ class CompanyController extends Controller
     /**
      * Remove the specified resource from storage.
      *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
+     * @param int $id
+     * @return Response
      */
     public function destroy($id)
     {
@@ -111,7 +117,7 @@ class CompanyController extends Controller
             $name = $company->name;
             $company->delete();
             return redirect()->route('companies.index')->with(['error' => false, 'message' => "{$name} deletada."]);
-        } catch (\Throwable $th) {
+        } catch (Throwable $th) {
             $message = (isset($company) && $company->jobs()->count() != 0) ? 'Essa empresa possue vagas associadas.' : 'Empresa não encontrada';
             return redirect()->back()->with(['error' => true, 'message' => $message]);
         }

@@ -3972,7 +3972,7 @@
                       continue;
                   case TableResultAction.resultAction.RemoveCell:
                       // Do not need remove cell because row will be deleted.
-                      continue;
+
               }
           }
           row.remove();
@@ -4018,7 +4018,7 @@
                       continue;
                   case TableResultAction.resultAction.RemoveCell:
                       dom.remove(actions[actionIndex].baseCell, true);
-                      continue;
+
               }
           }
       };

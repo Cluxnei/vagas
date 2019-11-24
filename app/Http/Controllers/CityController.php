@@ -4,13 +4,15 @@ namespace App\Http\Controllers;
 
 use App\Models\City;
 use Illuminate\Http\Request;
+use Illuminate\Http\Response;
+use Throwable;
 
 class CityController extends Controller
 {
     /**
      * Display a listing of the resource.
      *
-     * @return \Illuminate\Http\Response
+     * @return Response
      */
     public function index()
     {
@@ -21,7 +23,7 @@ class CityController extends Controller
     /**
      * Show the form for creating a new resource.
      *
-     * @return \Illuminate\Http\Response
+     * @return Response
      */
     public function create()
     {
@@ -31,8 +33,8 @@ class CityController extends Controller
     /**
      * Store a newly created resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
+     * @param Request $request
+     * @return Response
      */
     public function store(Request $request)
     {
@@ -44,7 +46,7 @@ class CityController extends Controller
         try {
             $city = City::create($data);
             return redirect()->route('cities.index')->with(['error' => false, 'message' => "{$city->name} adicionada."]);
-        } catch (\Throwable $th) {
+        } catch (Throwable $th) {
             return redirect()->back()->withInput()->with(['error' => true, 'message' => 'Erro ao adicionar cidade']);
         }
     }
@@ -53,7 +55,7 @@ class CityController extends Controller
      * Display the specified resource.
      *
      * @param  int  $id
-     * @return \Illuminate\Http\Response
+     * @return Response
      */
     public function show($id)
     {
@@ -64,7 +66,7 @@ class CityController extends Controller
      * Show the form for editing the specified resource.
      *
      * @param  int  $id
-     * @return \Illuminate\Http\Response
+     * @return Response
      */
     public function edit($id)
     {
@@ -75,9 +77,9 @@ class CityController extends Controller
     /**
      * Update the specified resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
+     * @param Request $request
      * @param  int  $id
-     * @return \Illuminate\Http\Response
+     * @return Response
      */
     public function update(Request $request, $id)
     {
@@ -89,7 +91,7 @@ class CityController extends Controller
         try {
             City::findOrFail($id)->update($data);
             return redirect()->route('cities.index')->with(['error' => false, 'message' => "{$request->name} atualizada."]);
-        } catch (\Throwable $th) {
+        } catch (Throwable $th) {
             return redirect()->route('cities.index')->with(['error' => true, 'message' => 'Erro ao atualizar cidade']);
         }
     }
@@ -98,7 +100,7 @@ class CityController extends Controller
      * Remove the specified resource from storage.
      *
      * @param  int  $id
-     * @return \Illuminate\Http\Response
+     * @return Response
      */
     public function destroy($id)
     {
@@ -107,7 +109,7 @@ class CityController extends Controller
             $name = $city->name;
             $city->delete();
             return redirect()->route('cities.index')->with(['error' => false, 'message' => "{$name} deletada."]);
-        } catch (\Throwable $th) {
+        } catch (Throwable $th) {
             $message = isset($city) && $city->companies()->count() != 0 ? 'Essa cidade possue empresas' : 'Cidade não encontrada';
             return redirect()->back()->with(['error' => true, 'message' => $message]);
         }
