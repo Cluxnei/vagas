@@ -6,6 +6,7 @@ use App\Mail\UserStatusChange;
 use App\Models\Course;
 use App\User;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Mail;
 
 class UserController extends Controller
@@ -40,11 +41,7 @@ class UserController extends Controller
             return redirect()->back()->with(['error' => true, 'message' => 'Erro ao rejeitar usuário']);
         }
     }
-    public function administratorsIndex()
-    {
-        $administrators = User::administrator()->get();
-        return view('users.administrators.index', compact('administrators'));
-    }
+
     /**
      * Display a listing of the resource.
      *
@@ -55,26 +52,10 @@ class UserController extends Controller
         $users = User::notAdmistrator()->orderBy('approved', 'asc')->get();
         return view('users.index', compact('users'));
     }
-
-    public function administratorEdit($id)
+    public function administratorsIndex()
     {
-        $administrator = User::administrator()->findOrFail($id);
-        return view('users.administrators.edit', compact('administrator'));
-    }
-
-    public function administratorUpdate(Request $request)
-    {
-        $data = $request->validate([
-            'name' => ['required', 'string', 'max:255'],
-            'email' => ['required', 'string', 'email', 'max:255', 'unique:users'],
-            'password' => ['required', 'string', 'min:8', 'confirmed'],
-            'cpf' => ['required', 'string', 'min:11', 'max:14', 'unique:users'],
-            'rg' => ['string', 'min:9', 'max:13', 'unique:users'],
-            'course_id' => ['required'],
-        ]);
-
-        $data['cpf'] = preg_replace('/(\.)|(\-)/', '', $data['cpf']);
-        $data['rg'] = preg_replace('/(\.)|(\-)/', '', $data['rg']);
+        $administrators = User::administrator()->get();
+        return view('users.administrators.index', compact('administrators'));
     }
 
     /**
@@ -85,7 +66,8 @@ class UserController extends Controller
      */
     public function edit($id)
     {
-        //
+        $user = User::findOrFail($id);
+        return view('users.edit', compact('user'));
     }
 
     /**
@@ -97,7 +79,20 @@ class UserController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        $user = User::findOrFail($id);
+        $data = $request->validate([
+            'name' => ['required', 'string', 'max:255'],
+            'email' => ['required', 'string', 'email', 'max:255'],
+            'password' => ['required', 'string', 'min:8', 'confirmed'],
+            'cpf' => ['required', 'string', 'min:11', 'max:14'],
+            'rg' => ['string', 'min:9', 'max:13'],
+            'course_id' => ['required'],
+        ]);
+        $data['cpf'] = preg_replace('/(\.)|(\-)/', '', $data['cpf']);
+        $data['rg'] = preg_replace('/(\.)|(\-)/', '', $data['rg']);
+        $data['password'] = Hash::make($data['password']);
+        $user->update($data);
+        return redirect()->back()->with(['error' => false, 'message' => "{$request->name} atualizado"]);
     }
 
     /**
@@ -118,7 +113,7 @@ class UserController extends Controller
             $message = 'Usuário não encontrado.';
             if (isset($user)) {
                 $hasJobs = $user->jobs()->count() != 0;
-                $message = 'Esse usuário possue vagas associadas.';
+                if($hasJobs) $message = 'Esse usuário possue vagas associadas.';
             }
             return redirect()->route('users.administrators')->with(['error' => true, 'message' => $message]);
         }

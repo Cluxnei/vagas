@@ -30,8 +30,8 @@
                 <td>{{ $administrator->rg }}</td>
                 <td>{{ $administrator->ra ?? '-' }}</td>
                 <td>
-                    <a href="{{ route('users.administrators.edit', $administrator->id) }}" class="btn btn-info">
-                        <i class="fas fa-eye"></i>
+                    <a href="{{ route('users.edit', $administrator->id) }}" class="btn btn-info">
+                        <i class="fas fa-edit"></i>
                     </a>
                 </td>
                 <td>

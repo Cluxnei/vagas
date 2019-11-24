@@ -63,7 +63,9 @@ class User extends Authenticatable
     {
         return $query->where('administrator', 0);
     }
-
+    /*
+     * @method administrator()
+     */
     public function scopeAdministrator($query)
     {
         return $query->where('administrator', 1);
