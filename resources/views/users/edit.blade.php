@@ -25,7 +25,7 @@
                         <div class="box-body">
                             <div class="form-group">
                                 <label for="name">Nome</label>
-                                <input type="text" class="form-control {{ $errors->has('name') ? 'is-invalid' : '' }}"
+                                <input type="text" maxlength="200" class="form-control {{ $errors->has('name') ? 'is-invalid' : '' }}"
                                        name="name" id="name" placeholder="Nome do curso"
                                        value="{{ $user->name ?? old('name') }}">
                                 @if ($errors->has('name'))
@@ -47,7 +47,7 @@
                             </div>
                             <div class="form-group">
                                 <label for="cpf">CPF</label>
-                                <input type="text" class="cpf form-control {{ $errors->has('cpf') ? 'is-invalid' : '' }}"
+                                <input type="text" maxlength="200" class="cpf form-control {{ $errors->has('cpf') ? 'is-invalid' : '' }}"
                                        id="cpf" name="cpf" placeholder="CPF"
                                        value="{{ $user->cpf ?? old('cpf') }}">
                                 @if ($errors->has('cpf'))
@@ -58,7 +58,7 @@
                             </div>
                             <div class="form-group">
                                 <label for="rg">RG</label>
-                                <input type="text" class="rg form-control {{ $errors->has('rg') ? 'is-invalid' : '' }}"
+                                <input type="text" maxlength="200" class="rg form-control {{ $errors->has('rg') ? 'is-invalid' : '' }}"
                                        id="rg" name="rg" placeholder="RG"
                                        value="{{ $user->rg ?? old('rg') }}">
                                 @if ($errors->has('rg'))
@@ -69,7 +69,7 @@
                             </div>
                             <div class="form-group">
                                 <label for="ra">RA</label>
-                                <input type="text" class="form-control {{ $errors->has('ra') ? 'is-invalid' : '' }}"
+                                <input type="text" maxlength="200" class="form-control {{ $errors->has('ra') ? 'is-invalid' : '' }}"
                                        id="ra" name="ra" placeholder="RA"
                                        value="{{ $user->rg ?? old('ra') }}">
                                 @if ($errors->has('ra'))

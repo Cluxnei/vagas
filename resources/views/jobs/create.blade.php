@@ -23,7 +23,7 @@
             <div class="box-body">
               <div class="form-group">
                 <label for="title">Título</label>
-                <input type="text" class="form-control {{ $errors->has('title') ? 'is-invalid' : '' }}" name="title" id="title" placeholder="Título da Vaga" value="{{ old('title') }}">
+                <input type="text" maxlength="200" class="form-control {{ $errors->has('title') ? 'is-invalid' : '' }}" name="title" id="title" placeholder="Título da Vaga" value="{{ old('title') }}">
                 @if ($errors->has('title'))
                     <div class="invalid-feedback">
                         {{ $errors->first('title') }}
@@ -32,7 +32,7 @@
               </div>
               <div class="form-group">
                 <label for="beginning_semester">Semestre de inicio</label>
-                <input type="number" max="10" class="form-control {{ $errors->has('beginning_semester') ? 'is-invalid' : '' }}" id="beginning_semester" name="beginning_semester" placeholder="Semestre de inicio" value="{{ old('beginning_semester') }}">
+                <input type="number" max="10" min="1" class="form-control {{ $errors->has('beginning_semester') ? 'is-invalid' : '' }}" id="beginning_semester" name="beginning_semester" placeholder="Semestre de inicio" value="{{ old('beginning_semester') }}">
                 @if ($errors->has('beginning_semester'))
                     <div class="invalid-feedback">
                         {{ $errors->first('beginning_semester') }}
@@ -40,8 +40,8 @@
                 @endif
               </div>
               <div class="form-group">
-                <label for="final_semester">Semestre de inicio</label>
-                <input type="number" max="10" class="form-control {{ $errors->has('final_semester') ? 'is-invalid' : '' }}" id="final_semester" name="final_semester" placeholder="Semestre de término" value="{{ old('final_semester') }}">
+                <label for="final_semester">Semestre de término</label>
+                <input type="number" max="10" min="1" class="form-control {{ $errors->has('final_semester') ? 'is-invalid' : '' }}" id="final_semester" name="final_semester" placeholder="Semestre de término" value="{{ old('final_semester') }}">
                 @if ($errors->has('final_semester'))
                     <div class="invalid-feedback">
                         {{ $errors->first('final_semester') }}
@@ -68,7 +68,7 @@
               </div>
                 <div class="form-group">
                     <label for="link">Link</label>
-                    <input type="url" class="form-control {{ $errors->has('link') ? 'is-invalid' : '' }}" name="link" id="link" placeholder="Link da vaga" value="{{ old('link') }}">
+                    <input type="url" maxlength="200" class="form-control {{ $errors->has('link') ? 'is-invalid' : '' }}" name="link" id="link" placeholder="Link da vaga" value="{{ old('link') }}">
                     @if ($errors->has('link'))
                         <div class="invalid-feedback">
                             {{ $errors->first('link') }}

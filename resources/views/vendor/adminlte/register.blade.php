@@ -18,7 +18,7 @@
                 {{ csrf_field() }}
 
                 <div class="input-group mb-3">
-                    <input type="text" name="name" class="form-control {{ $errors->has('name') ? 'is-invalid' : '' }}" value="{{ old('name') }}"
+                    <input type="text" maxlength="200" name="name" class="form-control {{ $errors->has('name') ? 'is-invalid' : '' }}" value="{{ old('name') }}"
                            placeholder="{{ __('adminlte::adminlte.full_name') }}" required />
                     <div class="input-group-append">
                         <div class="input-group-text">
@@ -47,8 +47,8 @@
                     @endif
                 </div>
                 <div class="input-group mb-3">
-                    <input type="text" name="cpf" class="cpf form-control {{ $errors->has('cpf') ? 'is-invalid' : '' }}"
-                           placeholder="CPF" required>
+                    <input type="text" maxlength="200" name="cpf" class="cpf form-control {{ $errors->has('cpf') ? 'is-invalid' : '' }}"
+                        value="{{ old('cpf') }}" placeholder="CPF" required>
                     @if ($errors->has('cpf'))
                         <div class="invalid-feedback">
                             <strong>{{ $errors->first('cpf') }}</strong>
@@ -56,8 +56,8 @@
                     @endif
                 </div>
                 <div class="input-group mb-3">
-                    <input type="text" name="rg" class="rg form-control {{ $errors->has('rg') ? 'is-invalid' : '' }}"
-                           placeholder="RG" />
+                    <input type="text" maxlength="200" name="rg" class="rg form-control {{ $errors->has('rg') ? 'is-invalid' : '' }}"
+                        value="{{ old('rg') }}" placeholder="RG" />
                     @if ($errors->has('rg'))
                         <div class="invalid-feedback">
                             <strong>{{ $errors->first('rg') }}</strong>
@@ -65,8 +65,8 @@
                     @endif
                 </div>
                 <div class="input-group mb-3">
-                    <input type="text" name="ra" class="form-control {{ $errors->has('ra') ? 'is-invalid' : '' }}"
-                           placeholder="RA" />
+                    <input type="text" maxlength="200" name="ra" class="form-control {{ $errors->has('ra') ? 'is-invalid' : '' }}"
+                        value="{{ old('ra') }}" placeholder="RA" />
                     @if ($errors->has('ra'))
                         <div class="invalid-feedback">
                             <strong>{{ $errors->first('ra') }}</strong>
@@ -74,8 +74,12 @@
                     @endif
                 </div>
                 <div class="input-group mb-3">
-                    <select name="course_id" class="form-control select2 {{ $errors->has('password') ? 'is-invalid' : '' }}" required>
+                    <select name="course_id" class="form-control select2 {{ $errors->has('course_id') ? 'is-invalid' : '' }}" required>
+                        @if(old('course_id'))
+                        <option value="{{ old('course_id') }}" select>{{ $courses->find(old('course_id'))->name }}</option>
+                        @else
                         <option value="">Selecione um curso</option>
+                        @endif
                         @foreach($courses as $course)
                         <option value="{{ $course->id }}">{{ $course->name }}</option>
                         @endforeach

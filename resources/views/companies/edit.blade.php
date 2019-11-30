@@ -24,7 +24,7 @@
                         <div class="box-body">
                             <div class="form-group">
                                 <label for="name">Nome</label>
-                                <input type="text" class="form-control {{ $errors->has('name') ? 'is-invalid' : '' }}"
+                                <input type="text" maxlength="200" class="form-control {{ $errors->has('name') ? 'is-invalid' : '' }}"
                                        name="name" id="name" placeholder="Nome do curso"
                                        value="{{ $company->name ?? old('name') }}">
                                 @if ($errors->has('name'))
@@ -64,7 +64,7 @@
                             </div>
                             <div class="form-group">
                                 <label for="phone">Telefone</label>
-                                <input type="text" class="form-control {{ $errors->has('phone') ? 'is-invalid' : '' }}"
+                                <input type="text" maxlength="200" class="form-control {{ $errors->has('phone') ? 'is-invalid' : '' }}"
                                        id="phone" name="phone" placeholder="Telefone da empresa"
                                        value="{{ $company->phone ?? old('phone') }}">
                                 @if ($errors->has('phone'))
@@ -75,7 +75,7 @@
                             </div>
                             <div class="form-group">
                                 <label for="site">Site</label>
-                                <input type="url" class="form-control {{ $errors->has('site') ? 'is-invalid' : '' }}"
+                                <input type="url" maxlength="200" class="form-control {{ $errors->has('site') ? 'is-invalid' : '' }}"
                                        id="site" name="site" placeholder="Site da empresa"
                                        value="{{ $company->site ?? old('site') }}">
                                 @if ($errors->has('site'))

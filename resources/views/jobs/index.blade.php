@@ -18,7 +18,7 @@
                 <th scope="col">Empresa</th>
                 <th scope="col">Administrador</th>
                 <th scope="col">status</th>
-                <th scope="col">ações</th>
+                <th scope="col">visualizar / editar / deletar</th>
             </tr>
         </thead>
         <tbody>
@@ -32,10 +32,13 @@
                     <div class="input-group-btn open">
                         <button type="button" class="btn btn-warning btn-block dropdown-toggle" data-toggle="dropdown" aria-expanded="true">
                             @if($job->isPublished())
+                            <b class="text-white">publicada&nbsp;</b>
                             <i class="fas fa-globe-americas text-white"></i>
                             @elseif($job->isPendent())
+                            <b class="text-white">pendente&nbsp;</b>
                             <i class="fas fa-circle-notch text-white"></i>
                             @else
+                            <b class="text-white">arquivada&nbsp;</b>
                             <i class="fas fa-archive text-white"></i>
                             @endif
                         </button>

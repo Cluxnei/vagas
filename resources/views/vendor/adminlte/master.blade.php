@@ -74,7 +74,7 @@
                     this.submit();
                 }
             })
-        })
+        });
     });
 </script>
 </body>
