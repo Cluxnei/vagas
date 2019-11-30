@@ -25,6 +25,7 @@ class AppServiceProvider extends ServiceProvider
      */
     public function boot()
     {
+        date_default_timezone_set('America/Sao_Paulo');
         Schema::defaultStringLength(255);
         // Gate to manage cities, users, jobs, companies, etc...
         Gate::define('manage', function ($user) {
