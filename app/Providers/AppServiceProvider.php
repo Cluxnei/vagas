@@ -25,7 +25,7 @@ class AppServiceProvider extends ServiceProvider
      */
     public function boot()
     {
-        Schema::defaultStringLength(191);
+        Schema::defaultStringLength(255);
         // Gate to manage cities, users, jobs, companies, etc...
         Gate::define('manage', function ($user) {
             return $user->isAdministrator();

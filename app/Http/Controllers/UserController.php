@@ -23,7 +23,7 @@ class UserController extends Controller
             $user->update([
                 'administrator' => 1
             ]);
-            return redirect()->route('users.index')->with(['error' => true, 'message' => 'Usuário ainda não está aprovado!']);
+            return redirect()->route('users.index')->with(['error' => false, 'message' => 'Usuário atualizado!']);
         } catch (\Throwable $th) {
             throw $th;
         }
