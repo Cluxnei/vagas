@@ -76,7 +76,7 @@
                 <div class="input-group mb-3">
                     <select name="course_id" class="form-control select2 {{ $errors->has('course_id') ? 'is-invalid' : '' }}" required>
                         @if(old('course_id'))
-                        <option value="{{ old('course_id') }}" select>{{ $courses->find(old('course_id'))->name }}</option>
+                        <option value="{{ old('course_id') }}" selected>{{ $courses->find(old('course_id'))->name }}</option>
                         @else
                         <option value="">Selecione um curso</option>
                         @endif
