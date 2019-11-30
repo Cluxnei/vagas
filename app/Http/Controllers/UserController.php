@@ -24,7 +24,7 @@ class UserController extends Controller
                 'administrator' => 1
             ]);
             return redirect()->route('users.index')->with(['error' => false, 'message' => 'Usuário atualizado!']);
-        } catch (\Throwable $th) {
+        } catch (Throwable $th) {
             throw $th;
         }
     }
