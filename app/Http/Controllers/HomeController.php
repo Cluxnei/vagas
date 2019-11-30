@@ -15,7 +15,7 @@ class HomeController extends Controller
         } catch (Throwable $ex) {
             $jobs = collect([]);
         }
-        $hr = date('h');
+        $hr = date('H');
         $saudation = ($hr < 12 ? 'Bom dia' : ($hr < 18 ? 'Boa tarde' : 'Boa noite')) . ', ' . auth()->user()->name;
         return view('home', compact('jobs', 'saudation'));
     }
@@ -23,7 +23,7 @@ class HomeController extends Controller
     public function search(Request $request)
     {
         $search = '%' . $request->q . '%';
-        $result = Job::orWhere('title', 'LIKE', $search)
+        $jobs = Job::orWhere('title', 'LIKE', $search)
             ->orWhere('beginning_semester', 'LIKE', $search)
             ->orWhere('final_semester', 'LIKE', $search)
             ->orWhere('requirement', 'LIKE', $search)
@@ -37,10 +37,10 @@ class HomeController extends Controller
             ->join('courses', 'courses_jobs.course_id', 'courses.id')
             ->orWhere('courses.name', 'LIKE', $search)
             ->orWhere('courses.semesters', 'LIKE', $search)
-            ->select('jobs.id', 'jobs.title')
-            ->get();
-        $hr = date('h');
+            ->select('jobs.*')
+            ->get()->unique();
+        $hr = date('H');
         $saudation = ($hr < 12 ? 'Bom dia' : ($hr < 18 ? 'Boa tarde' : 'Boa noite')) . ', ' . auth()->user()->name;
-        return view('home', compact('saudation', 'result'));
+        return view('home', compact('saudation', 'jobs'));
     }
 }
