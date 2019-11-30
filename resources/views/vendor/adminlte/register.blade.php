@@ -65,7 +65,7 @@
                     @endif
                 </div>
                 <div class="input-group mb-3">
-                    <input type="text" maxlength="200" name="ra" class="form-control {{ $errors->has('ra') ? 'is-invalid' : '' }}"
+                    <input type="text" maxlength="15" name="ra" class="form-control {{ $errors->has('ra') ? 'is-invalid' : '' }}"
                         value="{{ old('ra') }}" placeholder="RA" />
                     @if ($errors->has('ra'))
                         <div class="invalid-feedback">
@@ -90,14 +90,15 @@
                         </span>
                     @endif
                 </div>
-                <div class="input-group mb-3">
+                <div class="input-group">
                     <input type="password" name="password" class="form-control {{ $errors->has('password') ? 'is-invalid' : '' }}"
-                           placeholder="{{ __('adminlte::adminlte.password') }}" required />
+                    placeholder="{{ __('adminlte::adminlte.password') }}" required />
                     <div class="input-group-append">
                         <div class="input-group-text">
                             <span class="fas fa-lock"></span>
                         </div>
                     </div>
+                    <label for="password" style="color:red; font-size: 0.8rem;padding: 6px 4px; width:100%;">Senha deve conter no mínimo 8 caracteres </label>
                     @if ($errors->has('password'))
                         <div class="invalid-feedback">
                             <strong>{{ $errors->first('password') }}</strong>
