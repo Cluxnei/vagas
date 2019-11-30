@@ -54,4 +54,12 @@ class Job extends Model implements ShortableInterface
     {
         return $this->short($this->title);
     }
+    public function getShortRequirementAttribute()
+    {
+        return $this->short($this->requirement);
+    }
+    public function getShortBenefitsAttribute()
+    {
+        return $this->short($this->benefits);
+    }
 }
