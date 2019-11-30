@@ -13,6 +13,21 @@ use Throwable;
 
 class UserController extends Controller
 {
+    public function makeAdmin($id)
+    {
+        try {
+            $user = User::findOrFail($id);
+            if(!$user->isApproved()){
+                return redirect()->route('users.index')->with(['error' => true, 'message' => 'Usuário ainda não está aprovado!']);
+            }
+            $user->update([
+                'administrator' => 1
+            ]);
+            return redirect()->route('users.index')->with(['error' => true, 'message' => 'Usuário ainda não está aprovado!']);
+        } catch (\Throwable $th) {
+            throw $th;
+        }
+    }
     private function notify(User $user)
     {
         Mail::to($user->email)->send(new UserStatusChange($user));

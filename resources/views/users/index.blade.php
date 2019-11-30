@@ -32,16 +32,22 @@
                 <td>{{ $user->ra }}</td>
                 <td>{{ $user->course->name }}</td>
                 <td>
-                    <span style="opacity: 0;">{{ $user->approved }}</span>
+                    <span style="opacity: 0.6;">{{ $user->isApproved() ? 'aprovado ' : 'não aprovado '}}</span>
                     <i class="fas fa-{{ $user->isApproved() ? 'unlock' : 'lock'}}"></i>
                 </td>
                 <td>
                 @if($user->isApproved())
                 <a href="{{ route('users.reject', $user->id) }}" class="btn btn-danger">
+                    REPROVAR&nbsp;
                     <i class="fas fa-lock"></i>
+                </a>
+                <a href="{{ route('users.makeAdmin', $user->id) }}" class="btn btn-info">
+                    TORNAR ADMIN&nbsp;
+                    <i class="fas fa-user-cog"></i>
                 </a>
                 @else
                 <a href="{{ route('users.approve', $user->id) }}" class="btn btn-success">
+                    APROVAR&nbsp;
                     <i class="fas fa-unlock"></i>
                 </a>
                 @endif

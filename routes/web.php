@@ -29,6 +29,7 @@ Route::middleware(['auth', 'approved'])->group(function () {
         Route::get('changeStatus/{status}/{id}', 'JobController@changeStatus')->name('changeStatus');
         Route::get('v/{id}', 'JobController@userView')->name('userView');
     });
+    Route::get('make/admin/{id}', 'UserController@makeAdmin')->name('users.makeAdmin');
     #General Resources
     Route::resources([
         'cities' => 'CityController',
