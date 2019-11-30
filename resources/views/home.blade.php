@@ -19,8 +19,8 @@
                                         <h4 class="alert-heading">{{ $job->title }}</h4>
                                         <p>
                                             <b>Empresa:&nbsp;</b>{{ $job->company->name }}<br>
-                                            Semestre de início: {{ $job->beginning_semester}}, <br>
-                                            término: {{ $job->final_semester }}
+                                            Semestre de início: {{ $job->beginning_semester}}<br>
+                                            Semestre de término: {{ $job->final_semester }}
                                         </p>
                                         <hr>
                                         <p class="mb-0">

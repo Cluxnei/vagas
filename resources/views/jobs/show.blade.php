@@ -41,7 +41,7 @@
                 <p>{!! $job->benefits !!}</p>
                 @if($job->link)
                 <label>Link</label>
-                <a href="{{ $job->link}}">{{ $job->link }}</a>
+                <a href="{{ $job->link}}" target="_blank">{{ $job->link }}</a><br>
                 @endif
                 <label>Empresa</label>
                 <h2 class="form-control">{{ $job->company->name }}</h2>
